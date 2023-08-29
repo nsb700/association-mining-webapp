@@ -5,7 +5,7 @@
 ## Description :-
 
 This web application provides an API to access associations between diagnoses and medical services. The data powering 
-this web application is at https://github.com/nsb700/association_mining. The API URL allows retrieving associations 
+this web application is at https://github.com/nsb700/association_mining_demo. The API URL allows retrieving associations 
 for a diagnosis code. Response is a json for all related services and relevant lift scores.
 
 * API is built using FastAPI - https://fastapi.tiangolo.com/,
