@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: associations-api
+  labels:
+    app: associations-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: associations-api
+  template:
+    metadata:
+      labels:
+        app: associations-api
+    spec:
+      containers:
+      - name: associations-api
+        image: nsb700/repo-001:0.0.1
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 300m
+            memory: 500Mi
+          limits:
+            memory: 600Mi
