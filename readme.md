@@ -46,7 +46,7 @@ pip install -r requirements.txt
 ### (5) Install Docker for relevant operating system - https://docs.docker.com/engine/install/
 
 ### (6) Install minikube - https://minikube.sigs.k8s.io/docs/start/
-Minikube is a local implementation of Kubernetes. The execute the following - 
+Minikube is a local implementation of Kubernetes. Then execute the following - 
 ```commandline
 minikube start --driver=docker
 ```
@@ -54,31 +54,35 @@ minikube start --driver=docker
 ### (7) Install kubectl for relevant operating system - https://kubernetes.io/docs/tasks/tools/
 This allows one to run commands against Kubernetes cluster which in this case is minikube.
 
-### (8) Create account on https://hub.docker.com/ and create a repository.
-After creating the repository, one will get the repository name and its push command. 
+### (8) Create account on dockerhub https://hub.docker.com/ and create a repository.
+Dockerhub is a container registry. We will push our container image to a registry. After creating the repository, 
+it shows the repository name and its push command. The command displayed looks like this-
+```commandline
+docker push <dockerhub_username>/<repository_name>:tagname
+```
 
 ### (9) Build docker image :-
 ```commandline
 cd ~/association-mining-webapp
-docker build -t <repository_name_from_dockerhub>:0.0.1 .
-
-# 0.0.1 just happens to be the tag of our choice.
+docker build -t <dockerhub_username>/<repository_name>:0.0.1 .
 ```
+* -t is a parameter for a tag of an image 
+* 0.0.1 just happens to be the tag of our choice.
 
-### (10) Push docker image :-
+### (10) Push docker image (command available from step 8 above) :-
 ```commandline
 cd ~/association-mining-webapp
-docker push <repository_name_from_dockerhub>:0.0.1
-# This pushed the image to the repository on https://hub.docker.com/
+docker push <dockerhub_username>/<repository_name>:0.0.1
 ```
+* This pushes the image to the container registry on https://hub.docker.com/
 
 ### (11) Test web application by running docker image :-
 ```commandline
-docker run -p 8080:80 <repository_name_from_dockerhub>:0.0.1
+docker run -p 8080:80 <dockerhub_username>/<repository_name>:0.0.1
 ```
 This tells docker to run the container image locally. Here we are telling this command to port forward HTTP request from 
 our localhost at port 8080 to port 80 of the container.
-Go to the browser and enter this URL: http://localhost:8080/associations/diagnosis_code/M19.041
+Open the browser and enter this URL: http://localhost:8080/associations/diagnosis_code/M19.041
 Output is something like this - 
 ![img_1.png](screenshot_images/img_0.png)
 
@@ -108,7 +112,7 @@ minikube kubectl port-forward associations-api-978dffb4f-lpr28  30080:80
 
 ***
 
-## Run the web application :-
+## Issue HTTP requests to the web application :-
 * For the sake of simplicity, this app returns all associations (positive and negative). In main.py, it is trivial 
 to filter for positive associations (lift > 1)
 
