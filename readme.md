@@ -76,7 +76,7 @@ docker push <repository_name_from_dockerhub>:0.0.1
 ```commandline
 docker run -p 8080:80 <repository_name_from_dockerhub>:0.0.1
 ```
-This tells docker to run the container image locally. Here we are telling this command to port forward command from 
+This tells docker to run the container image locally. Here we are telling this command to port forward HTTP request from 
 our localhost at port 8080 to port 80 of the container.
 Go to the browser and enter this URL: http://localhost:8080/associations/diagnosis_code/M19.041
 Output is something like this - 
@@ -100,11 +100,11 @@ Each pod is running our container image which is running our web application.
 ```commandline
 minikube kubectl port-forward associations-api-978dffb4f-lpr28  30080:80
 ```
-* Here we are telling this command to port forward command from our localhost at port 30080 to port 80 of the service.
-* The service will get the request at port 80 and forward the request to the pod at port 80
+* Here we are telling this command to port forward HTTP request from our localhost at port 30080 to port 80 of service.
+* The service will get the request at port 80 and forward the request to the pod/s at port 80
   (see service.yaml 'port' and 'targetPort'). 
-* The pods get the request at port 80 at which it is listening (see deployment.yaml 'containerPort'). 
-* The pod then forwards this request to our uvicorn server which is also listening at port 80 (see Dockerfile CMD).
+* The pod/s get the request at port 80 where it is listening (see deployment.yaml 'containerPort'). 
+* The pod/s then forward/s this request to the uvicorn server which is also listening at port 80 (see Dockerfile CMD).
 
 ***
 
